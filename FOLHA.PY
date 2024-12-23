@@ -4,6 +4,7 @@ import tkinter as tk
 from tkinter import simpledialog
 import os
 import pandas as pd
+import openpyxl
 
 # Função para obter o código da empresa, o mês e o ano do usuário
 def get_user_input():
@@ -263,6 +264,26 @@ print(f"Diferença entre o último e o primeiro valor (cc_prov_inss_f): {cc_prov
 
 # Verificar se inss_f_valor e cc_prov_inss_f são iguais
 if inss_f_valor == cc_prov_inss_f:
-    print("INSS_f e cc_prov_inss_f são iguais.")
+    resultado = "OK"
 else:
-    print("INSS_f e cc_prov_inss_f são diferentes.")
+    resultado = "verificar"
+
+# Caminho da planilha de conciliação
+conciliacao_path = f'C:\\projeto\\planilhas\\balancete\\CONCILIACAO_{company_code}_{month_year}.xlsx'
+
+# Abrir a planilha de conciliação
+wb = openpyxl.load_workbook(conciliacao_path)
+ws = wb.active
+
+# Procurar por 181 na coluna A
+for row in ws.iter_rows(min_row=1, max_col=1, max_row=ws.max_row):
+    for cell in row:
+        if cell.value == 181:
+            # Escrever o resultado na coluna I da mesma linha
+            ws.cell(row=cell.row, column=9, value=resultado)
+            break
+
+# Salvar a planilha
+wb.save(conciliacao_path)
+
+print(f"Resultado '{resultado}' escrito na planilha de conciliação.")
