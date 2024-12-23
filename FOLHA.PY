@@ -193,5 +193,19 @@ else:
         print(f"Comparação FGTS_f: {resultado_fgts_f}")
         print(f"Comparação INSS_f: {resultado_inss_f}")
 
+        # Escrever os resultados na coluna I ao lado dos valores
+        for row in ws1.iter_rows(min_row=1, max_row=ws1.max_row, min_col=1, max_col=1):
+            for cell in row:
+                if cell.value == 177:
+                    ws1.cell(row=cell.row, column=9, value=resultado_ferias)
+                elif cell.value == 179:
+                    ws1.cell(row=cell.row, column=9, value=resultado_fgts_f)
+                elif cell.value == 181:
+                    ws1.cell(row=cell.row, column=9, value=resultado_inss_f)
+
+        # Salvar a planilha novamente
+        wb.save(conciliacao_path)
+
+        print(f"Resultados escritos na planilha de conciliação.")
     except Exception as e:
         print(f"Erro ao abrir ou processar o arquivo de conciliação: {e}")
