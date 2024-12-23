@@ -135,9 +135,13 @@ if not saldo_final_row.empty:
 else:
     print("Saldo final da conta não encontrado.")
 
+# Converter os valores de saldo_final_valores para float
+for key in saldo_final_valores:
+    saldo_final_valores[key] = float(saldo_final_valores[key].replace('.', '').replace(',', '.'))
+
 # Converter o valor de INSS_f para número
 if 'INSS_f' in saldo_final_valores:
-    inss_f_valor = float(saldo_final_valores['INSS_f'].replace('.', '').replace(',', '.'))
+    inss_f_valor = saldo_final_valores['INSS_f']
     print(f"Valor de INSS_f: {inss_f_valor}")
 
 # Salvar os valores encontrados em um novo CSV
@@ -149,135 +153,45 @@ print(f"Arquivo CSV com valores encontrados salvo em: {output_csv_path_final}")
 # Imprimir o caminho do ambiente virtual
 print("Caminho do ambiente virtual: c:/FOLHA/.venv/Scripts/python.exe")
 
-time.sleep(3)
-
-pyautogui.hotkey('ctrl', '2')
-
-time.sleep(3)
-
-pyautogui.press('alt')
-time.sleep(2)
-pyautogui.press('r')
-time.sleep(2)
-pyautogui.press('c')
-time.sleep(2)
-
-pyautogui.typewrite(day_month_year)
-time.sleep(2)
-
-# Pressionar "tab" duas vezes
-pyautogui.press('tab')
-time.sleep(2)
-pyautogui.press('tab')
-time.sleep(2)
-
-# Digitar "181"
-pyautogui.typewrite('181')
-pyautogui.press('enter')
-time.sleep(2)
-
-# Pressionar "pg dn"
-pyautogui.press('pagedown')
-time.sleep(2)
-
-pyautogui.click(x=63, y=121)
-
-time.sleep(2)
-
-pyautogui.press('tab')
-
-time.sleep(2)
-
-pyautogui.click(x=95, y=156)
-
-time.sleep(1)
-
-pyautogui.click(x=95, y=254)
-
-time.sleep(2)
-
-pyautogui.press('enter')
-
-time.sleep(4)
-
-pyautogui.write(r'C:\FOLHA\data\output\planilhas\cc_inss_prov_f')
-
-time.sleep(1)
-
-pyautogui.press('enter')
-
-# Aguardar um momento para garantir que o arquivo seja salvo
-time.sleep(5)
-
-# Caminho do segundo relatório
-second_report_path = r'C:\FOLHA\data\output\planilhas\cc_inss_prov_f.csv'
-
-# Verificar se o segundo arquivo foi salvo corretamente
-if os.path.exists(second_report_path):
-    print(f"Segundo arquivo CSV salvo em: {second_report_path}")
-else:
-    print("Erro ao salvar o segundo arquivo CSV.")
-
-# Ler o segundo relatório e trazer toda a coluna D
-df_second = pd.read_csv(second_report_path, sep=';', encoding='latin1')
-
-# Trazer toda a coluna D
-coluna_d = df_second.iloc[:, 3]
-
-# Separar a primeira e a última observação
-primeiro_valor = coluna_d.iloc[0]
-ultimo_valor = coluna_d.iloc[-1]
-
-# Verificar se os valores são strings antes de converter
-if isinstance(primeiro_valor, str):
-    primeiro_valor = float(primeiro_valor.replace('.', '').replace(',', '.'))
-if isinstance(ultimo_valor, str):
-    ultimo_valor = float(ultimo_valor.replace('.', '').replace(',', '.'))
-
-# Criar uma nova variável com o valor da última menos a primeira
-cc_prov_inss_f = round(ultimo_valor - primeiro_valor, 2)
-
-print(f"Primeiro valor da coluna D: {primeiro_valor}")
-print(f"Último valor da coluna D: {ultimo_valor}")
-print(f"Diferença entre o último e o primeiro valor (cc_prov_inss_f): {cc_prov_inss_f}")
-
-# Verificar se inss_f_valor e cc_prov_inss_f são iguais
-if inss_f_valor == cc_prov_inss_f:
-    resultado = "OK"
-else:
-    resultado = "verificar"
-    diferenca = inss_f_valor - cc_prov_inss_f
-
 # Caminho da planilha de conciliação
 conciliacao_path = f'C:\\projeto\\planilhas\\balancete\\CONCILIACAO_{company_code}_{month_year}.xlsx'
 
-# Abrir a planilha de conciliação
-wb = openpyxl.load_workbook(conciliacao_path)
+# Verificar se o arquivo de conciliação existe e é válido
+if not os.path.exists(conciliacao_path):
+    print(f"Erro: O arquivo {conciliacao_path} não existe.")
+else:
+    try:
+        # Abrir a planilha de conciliação
+        wb = openpyxl.load_workbook(conciliacao_path)
 
-# Atualizar a Sheet1
-ws1 = wb.active
-for row in ws1.iter_rows(min_row=1, max_col=1, max_row=ws1.max_row):
-    for cell in row:
-        if cell.value == 181:
-            ws1.cell(row=cell.row, column=9, value=resultado)
-            if resultado == "verificar":
-                ws1.cell(row=cell.row, column=10, value=diferenca)
-            break
+        # Atualizar a Sheet1
+        ws1 = wb.active
 
-# Salvar a planilha
-wb.save(conciliacao_path)
+        # Mapeamento dos valores da coluna H com os valores da coluna A
+        valores_mapeados = {}
+        for row in ws1.iter_rows(min_row=1, max_row=ws1.max_row, min_col=1, max_col=8):
+            cell_a = row[0]  # Coluna A
+            cell_h = row[7]  # Coluna H
+            if cell_a.value is not None:
+                valores_mapeados[cell_a.value] = cell_h.value
 
-print(f"Resultado '{resultado}' escrito na planilha de conciliação.")
+        # Procurar os valores onde A = 177, 179 e 181 e retornar os valores da coluna H
+        vlr_prov_ferias = valores_mapeados.get(177, "Valor não encontrado")
+        vlr_prov_fgts_f = valores_mapeados.get(179, "Valor não encontrado")
+        vlr_prov_inss_f = valores_mapeados.get(181, "Valor não encontrado")
 
-# Mapeamento dos valores da coluna H com os valores da coluna A
-valores_mapeados = {}
-for row in ws1.iter_rows(min_row=1, max_row=ws1.max_row, min_col=1, max_col=8):
-    cell_a = row[0]  # Coluna A
-    cell_h = row[7]  # Coluna H
-    if cell_a.value is not None:
-        valores_mapeados[cell_a.value] = cell_h.value
+        print(f"vlr_prov_ferias: {vlr_prov_ferias}")
+        print(f"vlr_prov_fgts_f: {vlr_prov_fgts_f}")
+        print(f"vlr_prov_inss_f: {vlr_prov_inss_f}")
 
-# Exemplo: Procurar o valor onde A = 177 e retornar o valor da coluna H
-vlr_prov_ferias = valores_mapeados.get(177, "Valor não encontrado")
+        # Comparar os valores
+        resultado_ferias = "OK" if saldo_final_valores['FERIAS'] == vlr_prov_ferias else "verificar"
+        resultado_fgts_f = "OK" if saldo_final_valores['FGTS_f'] == vlr_prov_fgts_f else "verificar"
+        resultado_inss_f = "OK" if saldo_final_valores['INSS_f'] == vlr_prov_inss_f else "verificar"
 
-print(f"vlr_prov_ferias: {vlr_prov_ferias}")
+        print(f"Comparação FERIAS: {resultado_ferias}")
+        print(f"Comparação FGTS_f: {resultado_fgts_f}")
+        print(f"Comparação INSS_f: {resultado_inss_f}")
+
+    except Exception as e:
+        print(f"Erro ao abrir ou processar o arquivo de conciliação: {e}")
