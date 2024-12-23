@@ -264,16 +264,6 @@ for row in ws1.iter_rows(min_row=1, max_col=1, max_row=ws1.max_row):
                 ws1.cell(row=cell.row, column=10, value=diferenca)
             break
 
-# Atualizar a Sheet2 ("CONCILIAÇÃO")
-ws2 = wb["CONCILIAÇÃO"]
-for row in ws2.iter_rows(min_row=1, max_col=1, max_row=ws2.max_row):
-    for cell in row:
-        if cell.value == 181:
-            ws2.cell(row=cell.row, column=6, value=resultado)
-            if resultado == "verificar":
-                ws2.cell(row=cell.row, column=7, value=diferenca)
-            break
-
 # Salvar a planilha
 wb.save(conciliacao_path)
 
@@ -288,6 +278,6 @@ for row in ws1.iter_rows(min_row=1, max_row=ws1.max_row, min_col=1, max_col=8):
         valores_mapeados[cell_a.value] = cell_h.value
 
 # Exemplo: Procurar o valor onde A = 177 e retornar o valor da coluna H
-valor_177 = valores_mapeados.get(177, "Valor não encontrado")
+vlr_prov_ferias = valores_mapeados.get(177, "Valor não encontrado")
 
-print(f"Valor na coluna H onde A = 177: {valor_177}")
+print(f"vlr_prov_ferias: {vlr_prov_ferias}")
