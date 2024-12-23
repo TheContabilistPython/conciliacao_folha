@@ -76,7 +76,7 @@ time.sleep(1)
 # Digitar o código da empresa
 pyautogui.typewrite(company_code)
 pyautogui.press('enter')
-
+time.sleep(1)
 # Pressionar "tab"
 pyautogui.press('tab')
 
@@ -84,31 +84,10 @@ pyautogui.press('tab')
 pyautogui.typewrite(month_year)
 pyautogui.press('enter')
 
-# Pressionar "Alt + F8"
-pyautogui.hotkey('alt', 'f8')
-
-# Esperar 3 segundos
-time.sleep(3)
-
-# Clicar em x=632, y=125
-pyautogui.click(x=632, y=125)
-
-# Esperar 0,5 segundos
-time.sleep(0.5)
-
-# Clicar em x=735, y=241
-pyautogui.click(x=735, y=241)
-
-time.sleep(3)
-
-# Clicar em x=634, y=125
-pyautogui.click(x=634, y=125)
+pyautogui.click(x=100, y=165)
 time.sleep(1)
 
-time.sleep(5)
-
-# Clicar em x=636, y=219
-pyautogui.click(x=636, y=219)
+pyautogui.click(x=100, y=256)
 time.sleep(5)
 
 # Pressionar "enter" para salvar o CSV
@@ -267,23 +246,48 @@ if inss_f_valor == cc_prov_inss_f:
     resultado = "OK"
 else:
     resultado = "verificar"
+    diferenca = inss_f_valor - cc_prov_inss_f
 
 # Caminho da planilha de conciliação
 conciliacao_path = f'C:\\projeto\\planilhas\\balancete\\CONCILIACAO_{company_code}_{month_year}.xlsx'
 
 # Abrir a planilha de conciliação
 wb = openpyxl.load_workbook(conciliacao_path)
-ws = wb.active
 
-# Procurar por 181 na coluna A
-for row in ws.iter_rows(min_row=1, max_col=1, max_row=ws.max_row):
+# Atualizar a Sheet1
+ws1 = wb.active
+for row in ws1.iter_rows(min_row=1, max_col=1, max_row=ws1.max_row):
     for cell in row:
         if cell.value == 181:
-            # Escrever o resultado na coluna I da mesma linha
-            ws.cell(row=cell.row, column=9, value=resultado)
+            ws1.cell(row=cell.row, column=9, value=resultado)
+            if resultado == "verificar":
+                ws1.cell(row=cell.row, column=10, value=diferenca)
+            break
+
+# Atualizar a Sheet2 ("CONCILIAÇÃO")
+ws2 = wb["CONCILIAÇÃO"]
+for row in ws2.iter_rows(min_row=1, max_col=1, max_row=ws2.max_row):
+    for cell in row:
+        if cell.value == 181:
+            ws2.cell(row=cell.row, column=6, value=resultado)
+            if resultado == "verificar":
+                ws2.cell(row=cell.row, column=7, value=diferenca)
             break
 
 # Salvar a planilha
 wb.save(conciliacao_path)
 
 print(f"Resultado '{resultado}' escrito na planilha de conciliação.")
+
+# Mapeamento dos valores da coluna H com os valores da coluna A
+valores_mapeados = {}
+for row in ws1.iter_rows(min_row=1, max_row=ws1.max_row, min_col=1, max_col=8):
+    cell_a = row[0]  # Coluna A
+    cell_h = row[7]  # Coluna H
+    if cell_a.value is not None:
+        valores_mapeados[cell_a.value] = cell_h.value
+
+# Exemplo: Procurar o valor onde A = 177 e retornar o valor da coluna H
+valor_177 = valores_mapeados.get(177, "Valor não encontrado")
+
+print(f"Valor na coluna H onde A = 177: {valor_177}")
