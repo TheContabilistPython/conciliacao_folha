@@ -1,0 +1,724 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="Generator" content="FastReport 5.0 http://www.fast-report.com">
+
+<title>relatorio_fgts</title>
+<style type="text/css"><!-- 
+.page_break {page-break-before: always;}
+.s0 {
+ font-family: Arial;
+ font-size: 13px;
+ color: #000000; font-style: normal;
+ background-color: transparent;
+ text-align: Left; vertical-align: Top;
+}
+.s1 {
+ font-family: Arial;
+ font-size: 12px;
+ color: #000000; font-style: normal;
+ background-color: transparent;
+ text-align: Right; vertical-align: Top;
+ padding-top: 1px;
+ padding-right: 2px;
+}
+.s2 {
+ font-family: Arial;
+ font-size: 13px;
+ color: #000000; font-weight: bold; font-style: normal;
+ background-color: transparent;
+ text-align: Left; vertical-align: Top;
+ padding-top: 1px;
+ padding-left: 2px;
+}
+.s3 {
+ font-family: Arial;
+ font-size: 9px;
+ color: #000000; font-style: normal;
+ background-color: transparent;
+ text-align: Right; vertical-align: Top;
+ padding-top: 1px;
+ padding-right: 2px;
+}
+.s4 {
+ font-family: Arial;
+ font-size: 11px;
+ color: #000000; font-style: normal;
+ background-color: transparent;
+ text-align: Left; vertical-align: Top;
+ padding-top: 1px;
+ padding-left: 2px;
+}
+.s5 {
+ font-family: Arial;
+ font-size: 13px;
+ color: #000000; font-weight: bold; font-style: normal;
+ background-color: transparent;
+ text-align: Center; vertical-align: Top;
+ padding-top: 1px;
+}
+.s6 {
+ font-family: Arial;
+ font-size: 11px;
+ color: #000000; font-weight: bold; font-style: normal;
+ background-color: transparent;
+ text-align: Left; vertical-align: Top;
+ padding-top: 1px;
+ padding-left: 2px;
+}
+.s7 {
+ font-family: Arial;
+ font-size: 11px;
+ color: #000000; font-weight: bold; font-style: normal;
+ background-color: transparent;
+ text-align: Left; vertical-align: Top;
+ padding-top: 1px;
+ padding-left: 2px;
+}
+.s8 {
+ font-family: Arial;
+ font-size: 11px;
+ color: #000000; font-weight: bold; font-style: normal;
+ background-color: transparent;
+ border-left-width: 0px;
+ border-right-width: 0px;
+ border-top-width: 0px;
+ border-bottom-color:#000000; border-bottom-style: solid; border-bottom-width: 1px;
+ text-align: Right; vertical-align: Top;
+ padding-top: 1px;
+ padding-right: 2px;
+}
+.s9 {
+ font-family: Arial;
+ font-size: 11px;
+ color: #000000; font-weight: bold; font-style: normal;
+ background-color: transparent;
+ border-left-width: 0px;
+ border-right-width: 0px;
+ border-top-width: 0px;
+ border-bottom-color:#000000; border-bottom-style: solid; border-bottom-width: 1px;
+ text-align: Left; vertical-align: Top;
+ padding-top: 1px;
+ padding-left: 2px;
+}
+.s10 {
+ font-family: Arial;
+ font-size: 11px;
+ color: #000000; font-style: normal;
+ background-color: transparent;
+ text-align: Right; vertical-align: Top;
+ padding-top: 1px;
+ padding-right: 2px;
+}
+.s11 {
+ font-family: Arial;
+ font-size: 11px;
+ color: #000000; font-style: normal;
+ background-color: transparent;
+ text-align: Left; vertical-align: Top;
+ padding-top: 1px;
+ padding-left: 2px;
+}
+.s12 {
+ font-family: Arial;
+ font-size: 11px;
+ color: #000000; font-style: normal;
+ background-color: transparent;
+ text-align: Right; vertical-align: Top;
+ padding-top: 1px;
+ padding-right: 2px;
+}
+.s13 {
+ font-family: Arial;
+ font-size: 8px;
+ color: #000000; font-style: normal;
+ background-color: transparent;
+ text-align: Right; vertical-align: Top;
+ padding-top: 1px;
+ padding-right: 2px;
+}
+.s14 {
+ font-family: Arial;
+ font-size: 8px;
+ color: #000000; font-style: normal;
+ background-color: transparent;
+ text-align: Left; vertical-align: Top;
+ padding-top: 1px;
+ padding-left: 2px;
+}
+.s15 {
+ font-family: Arial;
+ font-size: 12px;
+ color: #000000; font-weight: bold; font-style: normal;
+ background-color: transparent;
+ border-left-width: 0px;
+ border-right-width: 0px;
+ border-top-color:#000000; border-top-style: solid; border-top-width: 1px;
+ border-bottom-width: 0px;
+ text-align: Left; vertical-align: Top;
+ padding-top: 1px;
+ padding-left: 2px;
+}
+.s16 {
+ font-family: Arial;
+ font-size: 11px;
+ color: #000000; font-weight: bold; font-style: normal;
+ background-color: transparent;
+ border-left-width: 0px;
+ border-right-width: 0px;
+ border-top-color:#000000; border-top-style: solid; border-top-width: 1px;
+ border-bottom-width: 0px;
+ text-align: Right; vertical-align: Top;
+ padding-top: 1px;
+ padding-right: 2px;
+}
+.s17 {
+ font-family: Arial;
+ font-size: 11px;
+ color: #000000; font-weight: bold; font-style: normal;
+ background-color: transparent;
+ border-left-width: 0px;
+ border-right-width: 0px;
+ border-top-color:#000000; border-top-style: solid; border-top-width: 1px;
+ border-bottom-width: 0px;
+ text-align: Right; vertical-align: Top;
+ padding-top: 1px;
+ padding-right: 2px;
+}
+P {margin: 0;}
+--></style>
+</head>
+<body
+ background="relatorio_fgts.files/backgrnd.png"
+ bgcolor="#FFFFFF" text="#000000">
+
+<a name="PageN1"></a>
+<table width="1047" border="0" cellspacing="0" cellpadding="0">
+<tr style="height: 1px"><td width="42"/><td width="15"/><td width="106"/><td width="121"/><td width="106"/><td width="106"/><td width="106"/><td width="106"/><td width="64"/><td width="11"/><td width="30"/><td width="106"/><td width="8"/><td width="26"/><td width="95"/></tr>
+<tr style="height:18px">
+<td colspan="14" class="s2">Bases FGTS período de competência de 11/2024 até 11/2024</td><td class="s1">Página: 1</td>
+</tr>
+<tr style="height:18px">
+<td colspan="10" class="s4">Empresa: 8801 - DOMAZZI S.A.</td><td colspan="5" class="s3">Florianópolis/SC - CNPJ:72.204.944/0001-91</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:18px">
+<td colspan="15" class="s5">Competência: 11/2024</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td class="s6">Código</td><td colspan="12" class="s6">  Nome do colaborador</td><td colspan="2" class="s7">CPF</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s9" style="font-size:1px">&nbsp;</td><td class="s8">Folha normal</td><td class="s8">Folha complementar</td><td class="s8">Adiantamento 13º salário</td><td class="s8">13º salário</td><td class="s8">Complemento 13º salário</td><td class="s8">Rescisão</td><td colspan="3" class="s8">13º Rescisão</td><td class="s8">Férias</td><td colspan="3" class="s8">TOTAL FGTS</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">4</td><td colspan="12" class="s11">Gisele da Rosa Brun</td><td colspan="2" class="s11">007.267.240-41</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">9.500,00</td><td class="s12">0,00</td><td class="s12">4.750,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">760,00</td><td class="s12">0,00</td><td class="s12">380,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">1.140,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">7</td><td colspan="12" class="s11">Marcelo Joaquim Ribeiro</td><td colspan="2" class="s11">098.738.129-62</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">700,00</td><td class="s12">0,00</td><td class="s12">3.500,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">8.400,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">56,00</td><td class="s12">0,00</td><td class="s12">280,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">672,00</td><td colspan="3" class="s12">1.008,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">8</td><td colspan="12" class="s11">Pedro Liscoski Junior</td><td colspan="2" class="s11">100.026.439-44</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">620,00</td><td class="s12">0,00</td><td class="s12">3.100,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">7.439,99</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">49,60</td><td class="s12">0,00</td><td class="s12">248,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">595,19</td><td colspan="3" class="s12">892,79</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">11</td><td colspan="12" class="s11">VITORIA TAVARES ANTUNES</td><td colspan="2" class="s11">132.179.289-11</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">3.600,00</td><td class="s12">0,00</td><td class="s12">1.650,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">288,00</td><td class="s12">0,00</td><td class="s12">132,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">420,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">13</td><td colspan="12" class="s11">FRANCIS SOUZA FIORELLI</td><td colspan="2" class="s11">081.182.839-50</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">460,00</td><td class="s12">0,00</td><td class="s12">2.300,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">5.520,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">36,80</td><td class="s12">0,00</td><td class="s12">184,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">441,60</td><td colspan="3" class="s12">662,40</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">17</td><td colspan="12" class="s11">RICHARD DE LIMA</td><td colspan="2" class="s11">139.175.249-02</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">3.600,00</td><td class="s12">0,00</td><td class="s12">1.800,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">288,00</td><td class="s12">0,00</td><td class="s12">144,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">432,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">19</td><td colspan="12" class="s11">MESSINI AMANDA DA SILVA</td><td colspan="2" class="s11">031.826.280-03</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">5.000,00</td><td class="s12">0,00</td><td class="s12">2.500,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">400,00</td><td class="s12">0,00</td><td class="s12">200,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">600,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">21</td><td colspan="12" class="s11">ANA CLAUDIA BONISSONI</td><td colspan="2" class="s11">099.096.369-13</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">460,00</td><td class="s12">0,00</td><td class="s12">2.300,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">5.520,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">36,80</td><td class="s12">0,00</td><td class="s12">184,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">441,60</td><td colspan="3" class="s12">662,40</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">22</td><td colspan="12" class="s11">CAMILA WEBER CLASEN</td><td colspan="2" class="s11">088.590.219-01</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">460,00</td><td class="s12">0,00</td><td class="s12">2.300,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">5.520,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">36,80</td><td class="s12">0,00</td><td class="s12">184,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">441,60</td><td colspan="3" class="s12">662,40</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">23</td><td colspan="12" class="s11">MELISSA GABRIELA WUNSCHE</td><td colspan="2" class="s11">097.467.669-10</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">400,00</td><td class="s12">0,00</td><td class="s12">2.000,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">4.800,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">32,00</td><td class="s12">0,00</td><td class="s12">160,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">384,00</td><td colspan="3" class="s12">576,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">28</td><td colspan="12" class="s11">GABRIEL SOUZA SANTOS</td><td colspan="2" class="s11">033.143.001-07</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">5.993,33</td><td colspan="3" class="s12">2.900,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">479,46</td><td colspan="3" class="s12">231,99</td><td class="s12">0,00</td><td colspan="3" class="s12">711,45</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">29</td><td colspan="12" class="s11">BRUNO DUARTE PITOMBEIRA</td><td colspan="2" class="s11">071.984.443-69</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">4.000,00</td><td class="s12">0,00</td><td class="s12">2.000,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">320,00</td><td class="s12">0,00</td><td class="s12">160,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">480,00</td>
+</tr>
+<tr style="height:22px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:11px">
+<td colspan="9" class="s14">PRONTA SERVICOS CONTABEIS</td><td colspan="6" class="s13">26/12/2024 17:24 - SCI Ambiente Contábil ÚNICO</td>
+</tr>
+</table>
+<a name="PageN2"></a>
+<table width="1047" border="0" cellspacing="0" cellpadding="0" class="page_break">
+<tr style="height: 1px"><td width="42"/><td width="15"/><td width="106"/><td width="121"/><td width="106"/><td width="106"/><td width="106"/><td width="106"/><td width="64"/><td width="11"/><td width="30"/><td width="106"/><td width="8"/><td width="26"/><td width="95"/></tr>
+<tr style="height:37px">
+<td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/>
+</tr>
+<tr style="height:18px">
+<td colspan="14" class="s2">Bases FGTS período de competência de 11/2024 até 11/2024</td><td class="s1">Página: 2</td>
+</tr>
+<tr style="height:18px">
+<td colspan="10" class="s4">Empresa: 8801 - DOMAZZI S.A.</td><td colspan="5" class="s3">Florianópolis/SC - CNPJ:72.204.944/0001-91</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:18px">
+<td colspan="15" class="s5">Competência: 11/2024</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td class="s6">Código</td><td colspan="12" class="s6">  Nome do colaborador</td><td colspan="2" class="s7">CPF</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s9" style="font-size:1px">&nbsp;</td><td class="s8">Folha normal</td><td class="s8">Folha complementar</td><td class="s8">Adiantamento 13º salário</td><td class="s8">13º salário</td><td class="s8">Complemento 13º salário</td><td class="s8">Rescisão</td><td colspan="3" class="s8">13º Rescisão</td><td class="s8">Férias</td><td colspan="3" class="s8">TOTAL FGTS</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">30</td><td colspan="12" class="s11">LETHICIA XAVIER DA CUNHA</td><td colspan="2" class="s11">029.106.330-63</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">400,00</td><td class="s12">0,00</td><td class="s12">2.000,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">4.800,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">32,00</td><td class="s12">0,00</td><td class="s12">160,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">384,00</td><td colspan="3" class="s12">576,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">32</td><td colspan="12" class="s11">GIOVANNA  GUILHEN  MAZARO  ARAUJO</td><td colspan="2" class="s11">031.646.902-58</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">460,00</td><td class="s12">0,00</td><td class="s12">2.300,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">5.520,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">36,80</td><td class="s12">0,00</td><td class="s12">184,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">441,60</td><td colspan="3" class="s12">662,40</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">33</td><td colspan="12" class="s11">GUSTAVO MATIAS DA SILVA</td><td colspan="2" class="s11">047.694.011-75</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">3.600,00</td><td class="s12">0,00</td><td class="s12">1.800,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">288,00</td><td class="s12">0,00</td><td class="s12">144,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">432,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">34</td><td colspan="12" class="s11">GIELEN MARTINS TOLEDO</td><td colspan="2" class="s11">101.512.049-00</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">4.000,00</td><td class="s12">0,00</td><td class="s12">2.000,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">320,00</td><td class="s12">0,00</td><td class="s12">160,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">480,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">35</td><td colspan="12" class="s11">JHELITTY CRISTINA ZANANDREA</td><td colspan="2" class="s11">119.953.689-03</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">3.600,00</td><td class="s12">0,00</td><td class="s12">1.800,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">288,00</td><td class="s12">0,00</td><td class="s12">144,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">432,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">36</td><td colspan="12" class="s11">PAMELA PETOLINI DE OLIVEIRA</td><td colspan="2" class="s11">144.105.567-38</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">4.000,00</td><td class="s12">0,00</td><td class="s12">2.000,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">320,00</td><td class="s12">0,00</td><td class="s12">160,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">480,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">37</td><td colspan="12" class="s11">CAMILLE GUILARDI</td><td colspan="2" class="s11">013.229.270-06</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">2.300,00</td><td class="s12">0,00</td><td class="s12">1.150,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">184,00</td><td class="s12">0,00</td><td class="s12">92,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">276,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">38</td><td colspan="12" class="s11">CAROLINA DE OLIVEIRA DALMOLIN</td><td colspan="2" class="s11">020.738.420-70</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">4.800,00</td><td class="s12">0,00</td><td class="s12">1.400,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">384,00</td><td class="s12">0,00</td><td class="s12">112,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">496,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">39</td><td colspan="12" class="s11">GIULIANA SALGADO TEICHMANN</td><td colspan="2" class="s11">112.758.929-65</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">2.300,00</td><td class="s12">0,00</td><td class="s12">575,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">184,00</td><td class="s12">0,00</td><td class="s12">46,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">230,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">40</td><td colspan="12" class="s11">RAYAN VALOTO PEDROSA NEGRAO</td><td colspan="2" class="s11">064.257.139-25</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">4.000,00</td><td class="s12">0,00</td><td class="s12">1.000,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">320,00</td><td class="s12">0,00</td><td class="s12">80,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">400,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">41</td><td colspan="12" class="s11">NICOLY DE SOUZA MACHADO</td><td colspan="2" class="s11">124.753.419-71</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">2.900,00</td><td class="s12">0,00</td><td class="s12">725,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">232,00</td><td class="s12">0,00</td><td class="s12">58,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">290,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">42</td><td colspan="12" class="s11">GIORGIA VOSS ALBERNAZ DE MELLO</td><td colspan="2" class="s11">037.747.120-85</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">2.900,00</td><td class="s12">0,00</td><td class="s12">725,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">232,00</td><td class="s12">0,00</td><td class="s12">58,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">290,00</td>
+</tr>
+<tr style="height:22px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:11px">
+<td colspan="9" class="s14">PRONTA SERVICOS CONTABEIS</td><td colspan="6" class="s13">26/12/2024 17:24 - SCI Ambiente Contábil ÚNICO</td>
+</tr>
+</table>
+<a name="PageN3"></a>
+<table width="1047" border="0" cellspacing="0" cellpadding="0" class="page_break">
+<tr style="height: 1px"><td width="42"/><td width="15"/><td width="106"/><td width="121"/><td width="106"/><td width="106"/><td width="106"/><td width="106"/><td width="64"/><td width="11"/><td width="30"/><td width="106"/><td width="8"/><td width="26"/><td width="95"/></tr>
+<tr style="height:37px">
+<td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/><td/>
+</tr>
+<tr style="height:18px">
+<td colspan="14" class="s2">Bases FGTS período de competência de 11/2024 até 11/2024</td><td class="s1">Página: 3</td>
+</tr>
+<tr style="height:18px">
+<td colspan="10" class="s4">Empresa: 8801 - DOMAZZI S.A.</td><td colspan="5" class="s3">Florianópolis/SC - CNPJ:72.204.944/0001-91</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:18px">
+<td colspan="15" class="s5">Competência: 11/2024</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td class="s6">Código</td><td colspan="12" class="s6">  Nome do colaborador</td><td colspan="2" class="s7">CPF</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s9" style="font-size:1px">&nbsp;</td><td class="s8">Folha normal</td><td class="s8">Folha complementar</td><td class="s8">Adiantamento 13º salário</td><td class="s8">13º salário</td><td class="s8">Complemento 13º salário</td><td class="s8">Rescisão</td><td colspan="3" class="s8">13º Rescisão</td><td class="s8">Férias</td><td colspan="3" class="s8">TOTAL FGTS</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">43</td><td colspan="12" class="s11">GABRIELI STEFANI SIMAS</td><td colspan="2" class="s11">063.556.269-30</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">2.300,00</td><td class="s12">0,00</td><td class="s12">575,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">184,00</td><td class="s12">0,00</td><td class="s12">46,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">230,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">44</td><td colspan="12" class="s11">TAWANY RIUS DE CAMPOS</td><td colspan="2" class="s11">035.847.960-67</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">2.600,00</td><td class="s12">0,00</td><td class="s12">655,24</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">208,00</td><td class="s12">0,00</td><td class="s12">52,41</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">260,41</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">45</td><td colspan="12" class="s11">CLARICE MAGALHAES CABRAL</td><td colspan="2" class="s11">173.690.767-09</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">3.600,00</td><td class="s12">0,00</td><td class="s12">900,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">288,00</td><td class="s12">0,00</td><td class="s12">72,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">360,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">47</td><td colspan="12" class="s11">HANNIEL HERICH SINDER ROCHA SARDINHA</td><td colspan="2" class="s11">183.896.317-09</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">2.300,00</td><td class="s12">0,00</td><td class="s12">479,17</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">184,00</td><td class="s12">0,00</td><td class="s12">38,33</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">222,33</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">48</td><td colspan="12" class="s11">EMYLLIE BODZIAK NASCIMENTO</td><td colspan="2" class="s11">110.903.269-20</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">3.600,00</td><td class="s12">0,00</td><td class="s12">450,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">288,00</td><td class="s12">0,00</td><td class="s12">36,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">324,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">49</td><td colspan="12" class="s11">MATHEUS SANTOS SILVA</td><td colspan="2" class="s11">497.263.448-08</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">2.300,00</td><td class="s12">0,00</td><td class="s12">287,50</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">184,00</td><td class="s12">0,00</td><td class="s12">23,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">207,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">1003</td><td colspan="12" class="s11">BERNARDO DOZZA PEDROZO</td><td colspan="2" class="s11">008.260.869-50</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">1004</td><td colspan="12" class="s11">JOAO RICARDO DOZZA PEDROZO</td><td colspan="2" class="s11">047.161.949-30</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">1005</td><td colspan="12" class="s11">Mariana Dozza Pedrozo Freccia</td><td colspan="2" class="s11">049.429.879-03</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">1006</td><td colspan="12" class="s11">THYAGO ALFONSO HASKEL</td><td colspan="2" class="s11">039.738.539-08</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td>
+</tr>
+<tr style="height:15px">
+<td class="s10">1007</td><td colspan="12" class="s11">ROBER PAULO BASEGIO</td><td colspan="2" class="s11">703.045.139-20</td>
+</tr>
+<tr style="height:4px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td><td class="s12">0,00</td><td colspan="3" class="s12">0,00</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s15">Total:</td><td class="s16">Folha normal</td><td class="s16">Folha complementar</td><td class="s16">Adiantamento 13º salário</td><td class="s17">13º salário</td><td class="s16">Complemento 13º salário</td><td class="s16">Rescisão</td><td colspan="3" class="s16">13º Rescisão</td><td class="s16">Férias</td><td colspan="3" class="s16">TOTAL FGTS</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Base</td><td class="s12">80.760,00</td><td class="s12">0,00</td><td class="s12">49.021,91</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">5.993,33</td><td colspan="3" class="s12">2.900,00</td><td class="s12">47.519,99</td><td colspan="3" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:15px">
+<td colspan="2" class="s6">Valor</td><td class="s12">6.460,80</td><td class="s12">0,00</td><td class="s12">3.921,74</td><td class="s12">0,00</td><td class="s12">0,00</td><td class="s12">479,46</td><td colspan="3" class="s12">231,99</td><td class="s12">3.801,59</td><td colspan="3" class="s12">14.895,58</td>
+</tr>
+<tr style="height:26px">
+<td colspan="15" class="s0" style="font-size:1px">&nbsp;</td>
+</tr>
+<tr style="height:11px">
+<td colspan="9" class="s14">PRONTA SERVICOS CONTABEIS</td><td colspan="6" class="s13">26/12/2024 17:24 - SCI Ambiente Contábil ÚNICO</td>
+</tr>
+</table>
+</body></html>
+

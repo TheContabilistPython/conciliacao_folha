@@ -341,9 +341,28 @@ pyautogui.press('b')
 time.sleep(0.5)
 pyautogui.press('f')
 
+time.sleep(
+    2
+)
+
 pyautogui.press('tab')
-pyautogui.press('tab')
+pyautogui.typewrite(month_year)
 # Esperar um momento para a próxima ação
+
+# Mover o clique
+pyautogui.click(x=100, y=165)
+time.sleep(1)
+
+pyautogui.click(x=100, y=228)
+time.sleep(5)
+
+output_html_path_fgts = r'C:\FOLHA\data\output\planilhas\relatorio_fgts'
+
+# Pressionar "enter" para salvar o html
+pyautogui.press('enter')
+time.sleep(5)
+pyautogui.write(output_html_path_fgts)
+pyautogui.press('enter')
 
 # Caminho da planilha de conciliação
 conciliacao_path = f'C:\\projeto\\planilhas\\balancete\\CONCILIACAO_{company_code}_{month_year}.xlsx'
@@ -454,3 +473,5 @@ else:
         print(f"Resultados escritos na planilha de conciliação.")
     except Exception as e:
         print(f"Erro ao abrir ou processar o arquivo de conciliação: {e}")
+
+# amanha (sexta-feira) procurar por <td colspan="3" class="s12">14.895,58</td> e pegar o valor
