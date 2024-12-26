@@ -236,6 +236,18 @@ if 'salario_13' in valores_13:
     valores_13['salario_13'] = salario_13_formatado
     print(f"salario_13 formatado: {salario_13_formatado}")
 
+# Transformar o valor de inss_13 no estilo 88340.34
+if 'inss_13' in valores_13:
+    inss_13_formatado = valores_13['inss_13'].replace('.', '').replace(',', '.')
+    valores_13['inss_13'] = inss_13_formatado
+    print(f"inss_13 formatado: {inss_13_formatado}")
+
+# Transformar o valor de fgts_13 no estilo 88340.34
+if 'fgts_13' in valores_13:
+    fgts_13_formatado = valores_13['fgts_13'].replace('.', '').replace(',', '.')
+    valores_13['fgts_13'] = fgts_13_formatado
+    print(f"fgts_13 formatado: {fgts_13_formatado}")
+
 # Imprimir o caminho do ambiente virtual
 print("Caminho do ambiente virtual: c:/FOLHA/.venv/Scripts/python.exe")
 
@@ -276,8 +288,10 @@ else:
         print(f"vlr_prov_inss_13: {vlr_prov_inss_13}")
         print(f"vlr_prov_fgts_13: {vlr_prov_fgts_13}")
 
-        # Imprimir o valor de salario_13 que está sendo usado para a comparação
+        # Imprimir os valores que estão sendo usados para a comparação
         print(f"Valor de salario_13 usado para comparação: {salario_13_formatado}")
+        print(f"Valor de inss_13 usado para comparação: {inss_13_formatado}")
+        print(f"Valor de fgts_13 usado para comparação: {fgts_13_formatado}")
 
         # Comparar os valores
         try:
@@ -288,6 +302,22 @@ else:
             print(f"Erro ao converter valores para float: {e}")
             resultado_13 = "verificar"
 
+        try:
+            inss_13_float = float(inss_13_formatado)
+            vlr_prov_inss_13_float = float(vlr_prov_inss_13)
+            resultado_inss_13 = "OK" if inss_13_float == vlr_prov_inss_13_float else "verificar"
+        except ValueError as e:
+            print(f"Erro ao converter valores para float: {e}")
+            resultado_inss_13 = "verificar"
+
+        try:
+            fgts_13_float = float(fgts_13_formatado)
+            vlr_prov_fgts_13_float = float(vlr_prov_fgts_13)
+            resultado_fgts_13 = "OK" if fgts_13_float == vlr_prov_fgts_13_float else "verificar"
+        except ValueError as e:
+            print(f"Erro ao converter valores para float: {e}")
+            resultado_fgts_13 = "verificar"
+
         resultado_ferias = "OK" if saldo_final_valores['FERIAS'] == vlr_prov_ferias else "verificar"
         resultado_fgts_f = "OK" if saldo_final_valores['FGTS_f'] == vlr_prov_fgts_f else "verificar"
         resultado_inss_f = "OK" if saldo_final_valores['INSS_f'] == vlr_prov_inss_f else "verificar"
@@ -296,6 +326,8 @@ else:
         print(f"Comparação FGTS_f: {resultado_fgts_f}")
         print(f"Comparação INSS_f: {resultado_inss_f}")
         print(f"Comparação salario_13: {resultado_13}")
+        print(f"Comparação inss_13: {resultado_inss_13}")
+        print(f"Comparação fgts_13: {resultado_fgts_13}")
 
         # Escrever os resultados na coluna I ao lado dos valores
         for row in ws1.iter_rows(min_row=1, max_row=ws1.max_row, min_col=1, max_col=1):
@@ -308,6 +340,10 @@ else:
                     ws1.cell(row=cell.row, column=9, value=resultado_inss_f)
                 elif cell.value == 176:
                     ws1.cell(row=cell.row, column=9, value=resultado_13)
+                elif cell.value == 180:
+                    ws1.cell(row=cell.row, column=9, value=resultado_inss_13)
+                elif cell.value == 178:
+                    ws1.cell(row=cell.row, column=9, value=resultado_fgts_13)
 
         # Salvar a planilha novamente
         wb.save(conciliacao_path)
