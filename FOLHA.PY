@@ -1,3 +1,4 @@
+import re
 from bs4 import BeautifulSoup
 import pyautogui
 import time
@@ -248,8 +249,101 @@ if 'fgts_13' in valores_13:
     valores_13['fgts_13'] = fgts_13_formatado
     print(f"fgts_13 formatado: {fgts_13_formatado}")
 
+time.sleep(5)
+
+pyautogui.hotkey('alt','tab')
+time.sleep(0.5)
+pyautogui.press('alt')
+time.sleep(0.5)
+pyautogui.press('r')
+time.sleep(0.5)
+pyautogui.press('i')
+time.sleep(0.5)
+pyautogui.press('b')
+time.sleep(0.5)
+pyautogui.press('i')
+# Esperar um momento para a próxima ação
+time.sleep(4)
+
+time.sleep(1)
+pyautogui.press('tab')
+time.sleep(1)
+pyautogui.press('tab')
+time.sleep(1)
+pyautogui.press('tab')
+time.sleep(1)
+pyautogui.press('tab')
+time.sleep(1)
+# Digitar o mês e o ano no formato MMYYYY
+pyautogui.typewrite(month_year)
+time.sleep(2)
+pyautogui.press('enter')
+
+# Mover o clique
+pyautogui.click(x=100, y=165)
+time.sleep(1)
+
+pyautogui.click(x=100, y=228)
+time.sleep(5)
+
+output_html_path_inss = r'C:\FOLHA\data\output\planilhas\relatorio_inss'
+
+# Pressionar "enter" para salvar o html
+pyautogui.press('enter')
+time.sleep(5)
+pyautogui.write(output_html_path_inss)
+pyautogui.press('enter')
+
+with open(r"C:\FOLHA\data\output\planilhas\relatorio_inss.htm", 'r', encoding='utf-8') as file:
+    html_content_inss = file.read()
+soup = BeautifulSoup(html_content_inss, 'html.parser')
+
+def extrair_valor(valor):
+    # Remover qualquer texto extra após o número
+    valor = re.sub(r'\s\(.*\)', '', valor)  # Remove qualquer texto dentro de parênteses e o próprio parêntese
+    # Remover pontos de milhar e substituir vírgula por ponto para a conversão de número
+    valor = valor.replace('.', '').replace(',', '.')
+    return float(valor)
+
+# Encontrar todas as células <td> com a classe 's40'
+td_s40_values = soup.find_all('td', class_='s40')
+
+# Extrair e formatar os valores
+valores = []
+for td in td_s40_values:
+    valor = td.get_text(strip=True)  # Extrai o texto da célula
+    valor_formatado = extrair_valor(valor)  # Formatar o valor extraído
+    valores.append(valor_formatado)
+
+variaveis = {}
+
+# Exibir os valores formatados
+for i, valor in enumerate(valores):
+    # Aqui estamos associando a chave "INSS" ao valor
+    variaveis["INSS"] = valor  # Armazena o valor em variaveis['INSS']
+
+# Exibindo o valor de INSS
+print(f"INSS {variaveis['INSS']}")
+
 # Imprimir o caminho do ambiente virtual
 print("Caminho do ambiente virtual: c:/FOLHA/.venv/Scripts/python.exe")
+
+time.sleep(4)
+pyautogui.hotkey('alt','tab')
+time.sleep(0.5)
+pyautogui.press('alt')
+time.sleep(0.5)
+pyautogui.press('r')
+time.sleep(0.5)
+pyautogui.press('i')
+time.sleep(0.5)
+pyautogui.press('b')
+time.sleep(0.5)
+pyautogui.press('f')
+
+pyautogui.press('tab')
+pyautogui.press('tab')
+# Esperar um momento para a próxima ação
 
 # Caminho da planilha de conciliação
 conciliacao_path = f'C:\\projeto\\planilhas\\balancete\\CONCILIACAO_{company_code}_{month_year}.xlsx'
@@ -280,6 +374,7 @@ else:
         vlr_prov_13 = valores_mapeados.get(176, "Valor não encontrado")  
         vlr_prov_inss_13 = valores_mapeados.get(180, "Valor não encontrado")
         vlr_prov_fgts_13 = valores_mapeados.get(178, "Valor não encontrado")
+        vlr_prov_INSS = valores_mapeados.get(171, "Valor não encontrado")
 
         print(f"vlr_prov_ferias: {vlr_prov_ferias}")
         print(f"vlr_prov_fgts_f: {vlr_prov_fgts_f}")
@@ -287,11 +382,7 @@ else:
         print(f"vlr_prov_13: {vlr_prov_13}")
         print(f"vlr_prov_inss_13: {vlr_prov_inss_13}")
         print(f"vlr_prov_fgts_13: {vlr_prov_fgts_13}")
-
-        # Imprimir os valores que estão sendo usados para a comparação
-        print(f"Valor de salario_13 usado para comparação: {salario_13_formatado}")
-        print(f"Valor de inss_13 usado para comparação: {inss_13_formatado}")
-        print(f"Valor de fgts_13 usado para comparação: {fgts_13_formatado}")
+        print(f"vlr_prov_INSS: {vlr_prov_INSS}")
 
         # Comparar os valores
         try:
@@ -318,6 +409,14 @@ else:
             print(f"Erro ao converter valores para float: {e}")
             resultado_fgts_13 = "verificar"
 
+        try:
+            inss_float = float(variaveis["INSS"])
+            vlr_prov_inss_float = float(vlr_prov_INSS)
+            resultado_inss = "OK" if inss_float == vlr_prov_inss_float else "verificar"
+        except ValueError as e:
+            print(f"Erro ao converter valores para float: {e}")
+            resultado_inss = "verificar"
+
         resultado_ferias = "OK" if saldo_final_valores['FERIAS'] == vlr_prov_ferias else "verificar"
         resultado_fgts_f = "OK" if saldo_final_valores['FGTS_f'] == vlr_prov_fgts_f else "verificar"
         resultado_inss_f = "OK" if saldo_final_valores['INSS_f'] == vlr_prov_inss_f else "verificar"
@@ -328,7 +427,9 @@ else:
         print(f"Comparação salario_13: {resultado_13}")
         print(f"Comparação inss_13: {resultado_inss_13}")
         print(f"Comparação fgts_13: {resultado_fgts_13}")
-
+        print(f"Comparação INSS: {resultado_inss}")
+		
+		
         # Escrever os resultados na coluna I ao lado dos valores
         for row in ws1.iter_rows(min_row=1, max_row=ws1.max_row, min_col=1, max_col=1):
             for cell in row:
@@ -344,6 +445,8 @@ else:
                     ws1.cell(row=cell.row, column=9, value=resultado_inss_13)
                 elif cell.value == 178:
                     ws1.cell(row=cell.row, column=9, value=resultado_fgts_13)
+                elif cell.value == 171:
+                    ws1.cell(row=cell.row, column=9, value=resultado_inss)
 
         # Salvar a planilha novamente
         wb.save(conciliacao_path)
@@ -351,8 +454,3 @@ else:
         print(f"Resultados escritos na planilha de conciliação.")
     except Exception as e:
         print(f"Erro ao abrir ou processar o arquivo de conciliação: {e}")
-
-# Pressionar "Esc" três vezes
-pyautogui.press('esc')
-pyautogui.press('esc')
-pyautogui.press('esc')
