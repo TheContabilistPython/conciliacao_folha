@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 import pyautogui
 import time
 import tkinter as tk
@@ -28,8 +29,9 @@ day_month_year = '01' + month_year
 # Caminho para o executável na rede
 network_path = r'\\ap05\modulos\UNICO.EXE'
 
-# Caminho para salvar o CSV
+# Caminho para salvar os CSVs
 output_csv_path = r'C:\FOLHA\data\output\planilhas\relatorio_ferias.csv'
+output_html_path_13 = r'C:\FOLHA\data\output\planilhas\relatorio_13'
 
 # Pressionar Win + R
 pyautogui.hotkey('win', 'r')
@@ -84,6 +86,7 @@ pyautogui.press('tab')
 pyautogui.typewrite(month_year)
 pyautogui.press('enter')
 
+# Mover o clique
 pyautogui.click(x=100, y=165)
 time.sleep(1)
 
@@ -136,8 +139,9 @@ else:
     print("Saldo final da conta não encontrado.")
 
 # Converter os valores de saldo_final_valores para float
-for key in saldo_final_valores:
-    saldo_final_valores[key] = float(saldo_final_valores[key].replace('.', '').replace(',', '.'))
+if saldo_final_valores:
+    for key in saldo_final_valores:
+        saldo_final_valores[key] = float(saldo_final_valores[key].replace('.', '').replace(',', '.'))
 
 # Converter o valor de INSS_f para número
 if 'INSS_f' in saldo_final_valores:
@@ -149,6 +153,88 @@ output_csv_path_final = r'C:\FOLHA\data\output\planilhas\saldo_final_valores.csv
 pd.DataFrame([saldo_final_valores]).to_csv(output_csv_path_final, index=False, sep=';')
 
 print(f"Arquivo CSV com valores encontrados salvo em: {output_csv_path_final}")
+
+# Repetir o processo para relatorio_13.csv
+# Pressionar "Alt + R", "O", "1"
+pyautogui.hotkey('alt', 'r')
+time.sleep(0.5)
+pyautogui.press('o')
+time.sleep(0.5)
+pyautogui.press('1')
+
+time.sleep(2)
+
+# Pressionar "tab" e digitar o mês
+pyautogui.press('tab')
+pyautogui.typewrite(month_year)
+pyautogui.press('tab')
+
+# Mover o clique
+pyautogui.click(x=100, y=165)
+time.sleep(1)
+
+pyautogui.click(x=100, y=228)
+time.sleep(5)
+
+# Pressionar "enter" para salvar o html 
+pyautogui.press('enter')    
+time.sleep(2)
+pyautogui.write(output_html_path_13)
+pyautogui.press('enter')
+
+# Aguardar um momento para garantir que o arquivo seja salvo
+time.sleep(5)
+
+# Caminho do seu arquivo HTML
+caminho_arquivo = output_html_path_13
+
+# Função para formatar os números no formato desejado
+def formatar_valor(valor):
+    # Substituindo a vírgula por ponto (para garantir que a conversão para float funcione)
+    valor = valor.replace('.', '').replace(',', '.')
+    try:
+        # Convertendo para float e depois formatando para a string no formato desejado
+        return '{:,.2f}'.format(float(valor)).replace(',', 'X').replace('.', ',').replace('X', '.')
+    except ValueError:
+        return valor  # Retorna o valor original se não for um número válido
+
+# Abrindo o arquivo HTML
+with open(r"C:\FOLHA\data\output\planilhas\relatorio_13.htm", 'r', encoding='utf-8') as file:
+    html_content = file.read()
+
+# Usando BeautifulSoup para fazer o parsing do HTML
+soup = BeautifulSoup(html_content, 'html.parser')
+
+# Procurando pela tag <td> com o conteúdo específico
+td_elemento = soup.find('td', string="(=) Saldo final da conta")
+
+# Verificando se o conteúdo foi encontrado
+if td_elemento:
+    # Encontrando todos os <td> na mesma linha após o <td> encontrado
+    td_siguentes = td_elemento.find_all_next('td')
+    
+    # Definindo os rótulos personalizados para os 6 primeiros valores
+    rotulos = [
+        "salario_13", 
+        "fgts_13", 
+        "inss_13", 
+        "pis_13", 
+        "Total_13"
+    ]
+    
+    # Exibindo os 6 primeiros valores com rótulos personalizados
+    valores_13 = {}
+    for i, td in enumerate(td_siguentes[1:6]):
+        valores_13[rotulos[i]] = td.get_text()
+        print(f'{rotulos[i]}: {td.get_text()}')
+else:
+    print("Elemento específico não encontrado.")
+
+# Transformar o valor de salario_13 no estilo 88340.34
+if 'salario_13' in valores_13:
+    salario_13_formatado = valores_13['salario_13'].replace('.', '').replace(',', '.')
+    valores_13['salario_13'] = salario_13_formatado
+    print(f"salario_13 formatado: {salario_13_formatado}")
 
 # Imprimir o caminho do ambiente virtual
 print("Caminho do ambiente virtual: c:/FOLHA/.venv/Scripts/python.exe")
@@ -175,16 +261,33 @@ else:
             if cell_a.value is not None:
                 valores_mapeados[cell_a.value] = cell_h.value
 
-        # Procurar os valores onde A = 177, 179 e 181 e retornar os valores da coluna H
+        # Procurar os valores e retornar os valores da coluna H
         vlr_prov_ferias = valores_mapeados.get(177, "Valor não encontrado")
         vlr_prov_fgts_f = valores_mapeados.get(179, "Valor não encontrado")
         vlr_prov_inss_f = valores_mapeados.get(181, "Valor não encontrado")
+        vlr_prov_13 = valores_mapeados.get(176, "Valor não encontrado")  
+        vlr_prov_inss_13 = valores_mapeados.get(180, "Valor não encontrado")
+        vlr_prov_fgts_13 = valores_mapeados.get(178, "Valor não encontrado")
 
         print(f"vlr_prov_ferias: {vlr_prov_ferias}")
         print(f"vlr_prov_fgts_f: {vlr_prov_fgts_f}")
         print(f"vlr_prov_inss_f: {vlr_prov_inss_f}")
+        print(f"vlr_prov_13: {vlr_prov_13}")
+        print(f"vlr_prov_inss_13: {vlr_prov_inss_13}")
+        print(f"vlr_prov_fgts_13: {vlr_prov_fgts_13}")
+
+        # Imprimir o valor de salario_13 que está sendo usado para a comparação
+        print(f"Valor de salario_13 usado para comparação: {salario_13_formatado}")
 
         # Comparar os valores
+        try:
+            salario_13_float = float(salario_13_formatado)
+            vlr_prov_13_float = float(vlr_prov_13)
+            resultado_13 = "OK" if salario_13_float == vlr_prov_13_float else "verificar"
+        except ValueError as e:
+            print(f"Erro ao converter valores para float: {e}")
+            resultado_13 = "verificar"
+
         resultado_ferias = "OK" if saldo_final_valores['FERIAS'] == vlr_prov_ferias else "verificar"
         resultado_fgts_f = "OK" if saldo_final_valores['FGTS_f'] == vlr_prov_fgts_f else "verificar"
         resultado_inss_f = "OK" if saldo_final_valores['INSS_f'] == vlr_prov_inss_f else "verificar"
@@ -192,6 +295,7 @@ else:
         print(f"Comparação FERIAS: {resultado_ferias}")
         print(f"Comparação FGTS_f: {resultado_fgts_f}")
         print(f"Comparação INSS_f: {resultado_inss_f}")
+        print(f"Comparação salario_13: {resultado_13}")
 
         # Escrever os resultados na coluna I ao lado dos valores
         for row in ws1.iter_rows(min_row=1, max_row=ws1.max_row, min_col=1, max_col=1):
@@ -202,6 +306,8 @@ else:
                     ws1.cell(row=cell.row, column=9, value=resultado_fgts_f)
                 elif cell.value == 181:
                     ws1.cell(row=cell.row, column=9, value=resultado_inss_f)
+                elif cell.value == 176:
+                    ws1.cell(row=cell.row, column=9, value=resultado_13)
 
         # Salvar a planilha novamente
         wb.save(conciliacao_path)
@@ -209,3 +315,8 @@ else:
         print(f"Resultados escritos na planilha de conciliação.")
     except Exception as e:
         print(f"Erro ao abrir ou processar o arquivo de conciliação: {e}")
+
+# Pressionar "Esc" três vezes
+pyautogui.press('esc')
+pyautogui.press('esc')
+pyautogui.press('esc')
