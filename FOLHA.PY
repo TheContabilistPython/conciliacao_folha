@@ -1,3 +1,4 @@
+from decimal import Decimal, ROUND_DOWN
 import re
 from bs4 import BeautifulSoup
 import pyautogui
@@ -341,9 +342,7 @@ pyautogui.press('b')
 time.sleep(0.5)
 pyautogui.press('f')
 
-time.sleep(
-    2
-)
+time.sleep(2)
 
 pyautogui.press('tab')
 pyautogui.typewrite(month_year)
@@ -363,6 +362,30 @@ pyautogui.press('enter')
 time.sleep(5)
 pyautogui.write(output_html_path_fgts)
 pyautogui.press('enter')
+
+with open(output_html_path_fgts +'.htm') as file:
+    html_content_inss = file.read()
+soup = BeautifulSoup(html_content_inss, 'html.parser')
+
+def extrair_valor(valor_fgts):
+    # Remover qualquer texto extra após o número
+    valor = re.sub(r'\s\(.*\)', '', valor)  # Remove qualquer texto dentro de parênteses e o próprio parêntese
+    # Remover pontos de milhar e substituir vírgula por ponto para a conversão de número
+    valor = valor.replace('.', '').replace(',', '.')
+    return float(valor)
+
+
+td_s12_values = soup.find_all('td', {'colspan': '3', 'class': 's12'})
+if td_s12_values:
+    # Obter o último valor
+    valor_bruto = td_s12_values[-1].text  # Último valor
+
+    # Formatar o valor para xxxxx,xx
+    valor_formatado_fgts = valor_bruto.replace('.', '').replace(',', '.')  # Remove os pontos e ajusta vírgula
+    print("Valor formatado:", valor_formatado)
+
+else:
+    print("Nenhum valor encontrado.")
 
 # Caminho da planilha de conciliação
 conciliacao_path = f'C:\\projeto\\planilhas\\balancete\\CONCILIACAO_{company_code}_{month_year}.xlsx'
@@ -393,7 +416,18 @@ else:
         vlr_prov_13 = valores_mapeados.get(176, "Valor não encontrado")  
         vlr_prov_inss_13 = valores_mapeados.get(180, "Valor não encontrado")
         vlr_prov_fgts_13 = valores_mapeados.get(178, "Valor não encontrado")
-        vlr_prov_INSS = valores_mapeados.get(171, "Valor não encontrado")
+        vlr_INSS = valores_mapeados.get(171, "Valor não encontrado")
+        vlr_fgts = valores_mapeados.get(172, "Valor não encontrado")
+
+        vlr_fgts = float(vlr_fgts)
+        valor_formatado_fgts = float(valor_formatado_fgts)
+        vlr_fgts = Decimal(vlr_fgts)
+        vlr_fgts = vlr_fgts.quantize(Decimal('0.00'), rounding=ROUND_DOWN)
+
+        if vlr_fgts == valor_formatado_fgts:
+            print("Os valores são iguais.")
+        else:
+            print("Os valores são diferentes.")
 
         print(f"vlr_prov_ferias: {vlr_prov_ferias}")
         print(f"vlr_prov_fgts_f: {vlr_prov_fgts_f}")
@@ -401,7 +435,8 @@ else:
         print(f"vlr_prov_13: {vlr_prov_13}")
         print(f"vlr_prov_inss_13: {vlr_prov_inss_13}")
         print(f"vlr_prov_fgts_13: {vlr_prov_fgts_13}")
-        print(f"vlr_prov_INSS: {vlr_prov_INSS}")
+        print(f"vlr_INSS: {vlr_INSS}")
+        print(f"vlr_fgts: {vlr_fgts}")
 
         # Comparar os valores
         try:
@@ -430,7 +465,7 @@ else:
 
         try:
             inss_float = float(variaveis["INSS"])
-            vlr_prov_inss_float = float(vlr_prov_INSS)
+            vlr_prov_inss_float = float(vlr_INSS)
             resultado_inss = "OK" if inss_float == vlr_prov_inss_float else "verificar"
         except ValueError as e:
             print(f"Erro ao converter valores para float: {e}")
@@ -439,6 +474,8 @@ else:
         resultado_ferias = "OK" if saldo_final_valores['FERIAS'] == vlr_prov_ferias else "verificar"
         resultado_fgts_f = "OK" if saldo_final_valores['FGTS_f'] == vlr_prov_fgts_f else "verificar"
         resultado_inss_f = "OK" if saldo_final_valores['INSS_f'] == vlr_prov_inss_f else "verificar"
+        resultado_fgts = "OK" if float(valor_formatado_fgts) == float(vlr_fgts) else "verificar"
+
 
         print(f"Comparação FERIAS: {resultado_ferias}")
         print(f"Comparação FGTS_f: {resultado_fgts_f}")
@@ -447,6 +484,7 @@ else:
         print(f"Comparação inss_13: {resultado_inss_13}")
         print(f"Comparação fgts_13: {resultado_fgts_13}")
         print(f"Comparação INSS: {resultado_inss}")
+        print(f"Comparação FGTS: {resultado_fgts}")
 		
 		
         # Escrever os resultados na coluna I ao lado dos valores
@@ -466,6 +504,9 @@ else:
                     ws1.cell(row=cell.row, column=9, value=resultado_fgts_13)
                 elif cell.value == 171:
                     ws1.cell(row=cell.row, column=9, value=resultado_inss)
+                elif cell.value == 172:
+                    ws1.cell(row=cell.row, column=9, value=resultado_fgts)
+                
 
         # Salvar a planilha novamente
         wb.save(conciliacao_path)
