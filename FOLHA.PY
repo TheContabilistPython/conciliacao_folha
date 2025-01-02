@@ -387,6 +387,7 @@ if td_s12_values:
 else:
     print("Nenhum valor encontrado.")
 
+
 # Caminho da planilha de conciliação
 conciliacao_path = f'C:\\projeto\\planilhas\\balancete\\CONCILIACAO_{company_code}_{month_year}.xlsx'
 
@@ -410,24 +411,27 @@ else:
                 valores_mapeados[cell_a.value] = cell_h.value
 
         # Procurar os valores e retornar os valores da coluna H
-        vlr_prov_ferias = valores_mapeados.get(177, "Valor não encontrado")
-        vlr_prov_fgts_f = valores_mapeados.get(179, "Valor não encontrado")
-        vlr_prov_inss_f = valores_mapeados.get(181, "Valor não encontrado")
-        vlr_prov_13 = valores_mapeados.get(176, "Valor não encontrado")  
-        vlr_prov_inss_13 = valores_mapeados.get(180, "Valor não encontrado")
-        vlr_prov_fgts_13 = valores_mapeados.get(178, "Valor não encontrado")
-        vlr_INSS = valores_mapeados.get(171, "Valor não encontrado")
-        vlr_fgts = valores_mapeados.get(172, "Valor não encontrado")
+        vlr_prov_ferias = valores_mapeados.get(177, None)
+        vlr_prov_fgts_f = valores_mapeados.get(179, None)
+        vlr_prov_inss_f = valores_mapeados.get(181, None)
+        vlr_prov_13 = valores_mapeados.get(176, None)
+        vlr_prov_inss_13 = valores_mapeados.get(180, None)
+        vlr_prov_fgts_13 = valores_mapeados.get(178, None)
+        vlr_INSS = valores_mapeados.get(171, None)
+        vlr_fgts = valores_mapeados.get(172, None)
 
-        vlr_fgts = float(vlr_fgts)
-        valor_formatado_fgts = float(valor_formatado_fgts)
-        vlr_fgts = Decimal(vlr_fgts)
-        vlr_fgts = vlr_fgts.quantize(Decimal('0.00'), rounding=ROUND_DOWN)
+        if vlr_fgts is not None and vlr_fgts != "Valor não encontrado":
+            vlr_fgts = float(vlr_fgts)
+            valor_formatado_fgts = float(valor_formatado_fgts)
+            vlr_fgts = Decimal(vlr_fgts)
+            vlr_fgts = vlr_fgts.quantize(Decimal('0.00'), rounding=ROUND_DOWN)
 
-        if vlr_fgts == valor_formatado_fgts:
-            print("Os valores são iguais.")
+            if vlr_fgts == valor_formatado_fgts:
+                print("Os valores são iguais.")
+            else:
+                print("Os valores são diferentes.")
         else:
-            print("Os valores são diferentes.")
+            print("vlr_fgts não encontrado na planilha.")
 
         print(f"vlr_prov_ferias: {vlr_prov_ferias}")
         print(f"vlr_prov_fgts_f: {vlr_prov_fgts_f}")
@@ -441,41 +445,44 @@ else:
         # Comparar os valores
         try:
             salario_13_float = float(salario_13_formatado)
-            vlr_prov_13_float = float(vlr_prov_13)
+            vlr_prov_13_float = float(vlr_prov_13) if vlr_prov_13 is not None and vlr_prov_13 != "Valor não encontrado" else None
             resultado_13 = "OK" if salario_13_float == vlr_prov_13_float else "verificar"
-        except ValueError as e:
+        except (ValueError, TypeError) as e:
             print(f"Erro ao converter valores para float: {e}")
             resultado_13 = "verificar"
 
         try:
             inss_13_float = float(inss_13_formatado)
-            vlr_prov_inss_13_float = float(vlr_prov_inss_13)
+            vlr_prov_inss_13_float = float(vlr_prov_inss_13) if vlr_prov_inss_13 is not None and vlr_prov_inss_13 != "Valor não encontrado" else None
             resultado_inss_13 = "OK" if inss_13_float == vlr_prov_inss_13_float else "verificar"
-        except ValueError as e:
+        except (ValueError, TypeError) as e:
             print(f"Erro ao converter valores para float: {e}")
             resultado_inss_13 = "verificar"
 
         try:
             fgts_13_float = float(fgts_13_formatado)
-            vlr_prov_fgts_13_float = float(vlr_prov_fgts_13)
+            vlr_prov_fgts_13_float = float(vlr_prov_fgts_13) if vlr_prov_fgts_13 is not None and vlr_prov_fgts_13 != "Valor não encontrado" else None
             resultado_fgts_13 = "OK" if fgts_13_float == vlr_prov_fgts_13_float else "verificar"
-        except ValueError as e:
+        except (ValueError, TypeError) as e:
             print(f"Erro ao converter valores para float: {e}")
             resultado_fgts_13 = "verificar"
 
-        try:
-            inss_float = float(variaveis["INSS"])
-            vlr_prov_inss_float = float(vlr_INSS)
-            resultado_inss = "OK" if inss_float == vlr_prov_inss_float else "verificar"
-        except ValueError as e:
-            print(f"Erro ao converter valores para float: {e}")
+        if vlr_INSS is not None and vlr_INSS != "Valor não encontrado":
+            try:
+                inss_float = float(variaveis["INSS"])
+                vlr_prov_inss_float = float(vlr_INSS)
+                resultado_inss = "OK" if inss_float == vlr_prov_inss_float else "verificar"
+            except (ValueError, TypeError) as e:
+                print(f"Erro ao converter valores para float: {e}")
+                resultado_inss = "verificar"
+        else:
             resultado_inss = "verificar"
+            print("vlr_INSS não encontrado na planilha.")
 
-        resultado_ferias = "OK" if saldo_final_valores['FERIAS'] == vlr_prov_ferias else "verificar"
-        resultado_fgts_f = "OK" if saldo_final_valores['FGTS_f'] == vlr_prov_fgts_f else "verificar"
-        resultado_inss_f = "OK" if saldo_final_valores['INSS_f'] == vlr_prov_inss_f else "verificar"
+        resultado_ferias = "OK" if saldo_final_valores.get('FERIAS') == vlr_prov_ferias else "verificar"
+        resultado_fgts_f = "OK" if saldo_final_valores.get('FGTS_f') == vlr_prov_fgts_f else "verificar"
+        resultado_inss_f = "OK" if saldo_final_valores.get('INSS_f') == vlr_prov_inss_f else "verificar"
         resultado_fgts = "OK" if float(valor_formatado_fgts) == float(vlr_fgts) else "verificar"
-
 
         print(f"Comparação FERIAS: {resultado_ferias}")
         print(f"Comparação FGTS_f: {resultado_fgts_f}")
@@ -485,8 +492,7 @@ else:
         print(f"Comparação fgts_13: {resultado_fgts_13}")
         print(f"Comparação INSS: {resultado_inss}")
         print(f"Comparação FGTS: {resultado_fgts}")
-		
-		
+
         # Escrever os resultados na coluna I ao lado dos valores
         for row in ws1.iter_rows(min_row=1, max_row=ws1.max_row, min_col=1, max_col=1):
             for cell in row:
@@ -506,7 +512,6 @@ else:
                     ws1.cell(row=cell.row, column=9, value=resultado_inss)
                 elif cell.value == 172:
                     ws1.cell(row=cell.row, column=9, value=resultado_fgts)
-                
 
         # Salvar a planilha novamente
         wb.save(conciliacao_path)
@@ -515,4 +520,47 @@ else:
     except Exception as e:
         print(f"Erro ao abrir ou processar o arquivo de conciliação: {e}")
 
-# amanha (sexta-feira) procurar por <td colspan="3" class="s12">14.895,58</td> e pegar o valor
+
+# Função para ler o HTML de um caminho especificado
+def ler_html(caminho_html):
+    with open(caminho_html, 'r', encoding='utf-8') as file:
+        html_content = file.read()
+    return html_content
+
+# Função para procurar a linha onde o primeiro valor é "Líquido"
+def procurar_linha_liquido(html_content):
+    soup = BeautifulSoup(html_content, 'html.parser')
+    linha_liquido = None
+
+    for td in soup.find_all('td'):
+        if td.get_text(strip=True) == "Líquido":
+            linha_liquido = td.find_parent('tr')
+            break
+
+    return linha_liquido
+
+# Caminho do arquivo HTML
+caminho_html = r"C:\Users\contabil18\Downloads\RELATORIO_ESPELHO_RESUMO_8801.html"
+
+# Ler o conteúdo do HTML
+html_content = ler_html(caminho_html)
+
+# Procurar e salvar a linha onde o primeiro valor é "Líquido"
+linha_liquido = procurar_linha_liquido(html_content)
+if linha_liquido:
+    colunas = linha_liquido.find_all('td')
+    resultado_geral = colunas[1].get_text(strip=True).replace('.', '').replace(',', '.')
+    colaboradores = colunas[3].get_text(strip=True).replace('.', '').replace(',', '.')
+    empregadores = colunas[5].get_text(strip=True).replace('.', '').replace(',', '.')
+    autonomos = colunas[7].get_text(strip=True).replace('.', '').replace(',', '.')
+    estagiarios = colunas[9].get_text(strip=True).replace('.', '').replace(',', '.')
+
+    print("Resultado Geral:", resultado_geral)
+    print("Colaboradores:", colaboradores)
+    print("Empregadores:", empregadores)
+    print("Autônomos:", autonomos)
+    print("Estagiários:", estagiarios)
+else:
+    print("Linha com 'Líquido' não encontrada.")
+
+
