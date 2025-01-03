@@ -357,11 +357,41 @@ time.sleep(5)
 
 output_html_path_fgts = r'C:\FOLHA\data\output\planilhas\relatorio_fgts'
 
+# Caminho do arquivo HTML
+caminho_html_sal_pro = r"C:\FOLHA\html\RELATORIO_ESPELHO_RESUMO.html"
+
 # Pressionar "enter" para salvar o html
 pyautogui.press('enter')
 time.sleep(5)
 pyautogui.write(output_html_path_fgts)
 pyautogui.press('enter')
+time.sleep(3)
+
+pyautogui.hotkey('alt','tab')
+time.sleep(1)
+pyautogui.press('alt')
+time.sleep(1)
+pyautogui.press('r')
+time.sleep(1)
+pyautogui.press('e')
+time.sleep(1)
+pyautogui.press('tab')
+time.sleep(1)
+pyautogui.press('tab')
+time.sleep(1)
+pyautogui.press('tab')
+time.sleep(1)
+pyautogui.write(month_year)
+time.sleep(1)
+pyautogui.leftClick(95, 161)
+time.sleep(1)
+pyautogui.leftClick(95, 228)
+time.sleep(3)
+pyautogui.press('enter')
+time.sleep(2)
+pyautogui.write(caminho_html_sal_pro)
+pyautogui.press('enter')
+time.sleep(5)
 
 with open(output_html_path_fgts +'.htm') as file:
     html_content_inss = file.read()
@@ -520,7 +550,6 @@ else:
     except Exception as e:
         print(f"Erro ao abrir ou processar o arquivo de conciliação: {e}")
 
-
 # Função para ler o HTML de um caminho especificado
 def ler_html(caminho_html):
     with open(caminho_html, 'r', encoding='utf-8') as file:
@@ -539,14 +568,11 @@ def procurar_linha_liquido(html_content):
 
     return linha_liquido
 
-# Caminho do arquivo HTML
-caminho_html = r"C:\Users\contabil18\Downloads\RELATORIO_ESPELHO_RESUMO_8801.html"
-
 # Ler o conteúdo do HTML
-html_content = ler_html(caminho_html)
+html_content_sal_pro = ler_html(caminho_html_sal_pro)
 
 # Procurar e salvar a linha onde o primeiro valor é "Líquido"
-linha_liquido = procurar_linha_liquido(html_content)
+linha_liquido = procurar_linha_liquido(html_content_sal_pro)
 if linha_liquido:
     colunas = linha_liquido.find_all('td')
     resultado_geral = colunas[1].get_text(strip=True).replace('.', '').replace(',', '.')
@@ -562,5 +588,40 @@ if linha_liquido:
     print("Estagiários:", estagiarios)
 else:
     print("Linha com 'Líquido' não encontrada.")
+
+# Caminho da planilha de conciliação
+conciliacao_path = f'C:\\projeto\\planilhas\\balancete\\CONCILIACAO_{company_code}_{month_year}.xlsx'
+
+# Verificar se o arquivo de conciliação existe e é válido
+if not os.path.exists(conciliacao_path):
+    print(f"Erro: O arquivo {conciliacao_path} não existe.")
+else:
+    try:
+        # Abrir a planilha de conciliação
+        wb = openpyxl.load_workbook(conciliacao_path)
+        ws = wb.active
+
+        # Procurar o valor na coluna A e comparar com os valores de colaboradores e empregadores
+        for row in ws.iter_rows(min_row=2):
+            cell_a = row[0].value  # Coluna A (índice 0)
+            cell_h = row[7].value  # Coluna H (índice 7)
+            cell_i = row[8]        # Coluna I (índice 8)
+
+            if cell_a == 160:
+                if float(cell_h) == float(colaboradores):
+                    cell_i.value = "OK"
+                else:
+                    cell_i.value = "Verificar"
+            elif cell_a == 169:
+                if float(cell_h) == float(empregadores):
+                    cell_i.value = "OK"
+                else:
+                    cell_i.value = "Verificar"
+
+        # Salvar as alterações de volta no arquivo Excel
+        wb.save(conciliacao_path)
+        print(f"Resultado da comparação escrito na planilha de conciliação.")
+    except Exception as e:
+        print(f"Erro ao abrir ou processar o arquivo de conciliação: {e}")
 
 
