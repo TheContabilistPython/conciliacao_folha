@@ -32,7 +32,7 @@ day_month_year = '01' + month_year
 network_path = r'\\ap05\modulos\UNICO.EXE'
 
 # Caminho para salvar os CSVs
-output_csv_path = r'C:\FOLHA\data\output\planilhas\relatorio_ferias.csv'
+# output_csv_path = r'C:\FOLHA\data\output\planilhas\relatorio_ferias.csv'
 output_html_path_13 = r'C:\FOLHA\data\output\planilhas\relatorio_13'
 
 # Pressionar Win + R
@@ -92,69 +92,117 @@ pyautogui.press('enter')
 pyautogui.click(x=100, y=165)
 time.sleep(1)
 
-pyautogui.click(x=100, y=256)
+pyautogui.click(x=100, y=228)
 time.sleep(5)
 
 # Pressionar "enter" para salvar o CSV
 pyautogui.press('enter')
 time.sleep(5)
 
+# Caminho do arquivo HTML
+html_file_path = r"C:\FOLHA\data\output\planilhas\relatorio_ferias.htm"
+
 # Digitar o caminho para salvar o CSV
-pyautogui.typewrite(output_csv_path)
-time.sleep(5)
+pyautogui.typewrite(html_file_path)
 
 pyautogui.press('enter')
+time.sleep(5)
+pyautogui.hotkey('alt', 'tab')
 
 # Aguardar um momento para garantir que o arquivo seja salvo
 time.sleep(5)
 
-# Verificar se o arquivo foi salvo corretamente
-if os.path.exists(output_csv_path):
-    print(f"Arquivo CSV salvo em: {output_csv_path}")
+# Abrir e ler o conteúdo do arquivo HTML
+with open(html_file_path, 'r', encoding='utf-8') as file:
+    html_content = file.read()
+
+# Usar BeautifulSoup para fazer o parsing do HTML
+soup = BeautifulSoup(html_content, 'html.parser')
+
+# Procurar pela tag <td> com o conteúdo específico "(=) Saldo final da conta"
+td_elemento = soup.find('td', string="(=) Saldo final da conta")
+
+# Verificar se o conteúdo foi encontrado
+if td_elemento:
+    # Encontrar todos os <td> na mesma linha após o <td> encontrado
+    td_siguentes = td_elemento.find_parent('tr').find_all('td')
+    
+    # Função para converter os valores para float e usar ',' como separador decimal
+    def converter_valor(valor):
+        valor = valor.replace('.', '').replace(',', '.')
+        return float(valor)
+    
+    # Extrair os valores da linha, ignorando o segundo dado 'R$'
+    saldo_final_conta = td_siguentes[0].get_text(strip=True)
+    ferias = converter_valor(td_siguentes[2].get_text(strip=True))
+    fgts_f = converter_valor(td_siguentes[3].get_text(strip=True))
+    inss_f = converter_valor(td_siguentes[4].get_text(strip=True))
+    pis_f = converter_valor(td_siguentes[5].get_text(strip=True))
+    total_f = converter_valor(td_siguentes[6].get_text(strip=True))
+    
+    # Exibir os valores extraídos
+    print(f"Saldo final da conta: {saldo_final_conta}")
+    print(f"Férias: {ferias}")
+    print(f"FGTS_f: {fgts_f}")
+    print(f"INSS_f: {inss_f}")
+    print(f"PIS_f: {pis_f}")
+    print(f"Total_f: {total_f}")
 else:
-    print("Erro ao salvar o arquivo CSV.")
+    print("Elemento específico não encontrado.")
+
+# Verificar se o arquivo foi salvo corretamente
+# if os.path.exists(output_csv_path):
+#     print(f"Arquivo CSV salvo em: {output_csv_path}")
+# else:
+#     print("Erro ao salvar o arquivo CSV.")
 
 # Ler o CSV e procurar por "(=) Saldo final da conta" na coluna A
-df = pd.read_csv(output_csv_path, sep=';', encoding='latin1')
+# df = pd.read_csv(output_csv_path, sep=';', encoding='latin1', on_bad_lines='warn')
 
 # Substituir os nomes das colunas conforme solicitado
-df.rename(columns={
-    'Unnamed: 5': 'FERIAS',
-    'Unnamed: 11': 'FGTS_f',
-    'Unnamed: 16': 'INSS_f',
-    'Unnamed: 23': 'PIS_f',
-    'Unnamed: 29': 'TOTAL_f'
-}, inplace=True)
+# df.rename(columns={
+#     'Unnamed: 5': 'FERIAS',
+#     'Unnamed: 11': 'FGTS_f',
+#     'Unnamed: 16': 'INSS_f',
+#     'Unnamed: 23': 'PIS_f',
+#     'Unnamed: 29': 'TOTAL_f'
+# }, inplace=True)
 
 # Procurar por "(=) Saldo final da conta" na coluna A
-saldo_final_row = df[df.iloc[:, 0].str.contains(r"\(=\) Saldo final da conta", na=False)]
+# saldo_final_row = df[df.iloc[:, 0].str.contains(r"\(=\) Saldo final da conta", na=False)]
 
 # Variáveis para armazenar os dados
-saldo_final_valores = None
+saldo_final_valores = {
+    'FERIAS': ferias,
+    'FGTS_f': fgts_f,
+    'INSS_f': inss_f,
+    'PIS_f': pis_f,
+    'TOTAL_f': total_f
+}
 
 # Se encontrado, armazenar os valores correspondentes à linha
-if not saldo_final_row.empty:
-    saldo_final_valores = saldo_final_row[['FERIAS', 'FGTS_f', 'INSS_f', 'PIS_f', 'TOTAL_f']].iloc[0].dropna().to_dict()
-    print("Saldo final da conta encontrado. Valores correspondentes:")
-    print(saldo_final_valores)
-else:
-    print("Saldo final da conta não encontrado.")
+# if not saldo_final_row.empty:
+#     saldo_final_valores = saldo_final_row[['FERIAS', 'FGTS_f', 'INSS_f', 'PIS_f', 'TOTAL_f']].iloc[0].dropna().to_dict()
+#     print("Saldo final da conta encontrado. Valores correspondentes:")
+#     print(saldo_final_valores)
+# else:
+#     print("Saldo final da conta não encontrado.")
 
 # Converter os valores de saldo_final_valores para float
-if saldo_final_valores:
-    for key in saldo_final_valores:
-        saldo_final_valores[key] = float(saldo_final_valores[key].replace('.', '').replace(',', '.'))
+# if saldo_final_valores:
+#     for key in saldo_final_valores:
+#         saldo_final_valores[key] = float(saldo_final_valores[key].replace('.', '').replace(',', '.'))
 
 # Converter o valor de INSS_f para número
-if 'INSS_f' in saldo_final_valores:
-    inss_f_valor = saldo_final_valores['INSS_f']
-    print(f"Valor de INSS_f: {inss_f_valor}")
+# if saldo_final_valores and 'INSS_f' in saldo_final_valores:
+#     inss_f_valor = saldo_final_valores['INSS_f']
+#     print(f"Valor de INSS_f: {inss_f_valor}")
 
 # Salvar os valores encontrados em um novo CSV
-output_csv_path_final = r'C:\FOLHA\data\output\planilhas\saldo_final_valores.csv'
-pd.DataFrame([saldo_final_valores]).to_csv(output_csv_path_final, index=False, sep=';')
-
-print(f"Arquivo CSV com valores encontrados salvo em: {output_csv_path_final}")
+# if saldo_final_valores:
+#     output_csv_path_final = r'C:\FOLHA\data\output\planilhas\saldo_final_valores.csv'
+#     pd.DataFrame([saldo_final_valores]).to_csv(output_csv_path_final, index=False, sep=';')
+#     print(f"Arquivo CSV com valores encontrados salvo em: {output_csv_path_final}")
 
 # Repetir o processo para relatorio_13.csv
 # Pressionar "Alt + R", "O", "1"
@@ -277,8 +325,10 @@ pyautogui.press('tab')
 time.sleep(1)
 # Digitar o mês e o ano no formato MMYYYY
 pyautogui.typewrite(month_year)
-time.sleep(2)
+time.sleep(1)
 pyautogui.press('enter')
+time.sleep(1)
+pyautogui.press('tab')
 
 # Mover o clique
 pyautogui.click(x=100, y=165)
@@ -295,6 +345,7 @@ time.sleep(5)
 pyautogui.write(output_html_path_inss)
 pyautogui.press('enter')
 
+time.sleep(5)
 with open(r"C:\FOLHA\data\output\planilhas\relatorio_inss.htm", 'r', encoding='utf-8') as file:
     html_content_inss = file.read()
 soup = BeautifulSoup(html_content_inss, 'html.parser')
@@ -358,7 +409,7 @@ time.sleep(5)
 output_html_path_fgts = r'C:\FOLHA\data\output\planilhas\relatorio_fgts'
 
 # Caminho do arquivo HTML
-caminho_html_sal_pro = r"C:\FOLHA\html\RELATORIO_ESPELHO_RESUMO.html"
+caminho_html_sal_pro = r"C:\FOLHA\data\output\planilhas\relatorio_sal_pro.htm"
 
 # Pressionar "enter" para salvar o html
 pyautogui.press('enter')
@@ -374,7 +425,7 @@ time.sleep(1)
 pyautogui.press('r')
 time.sleep(1)
 pyautogui.press('e')
-time.sleep(1)
+time.sleep(5)
 pyautogui.press('tab')
 time.sleep(1)
 pyautogui.press('tab')
@@ -382,8 +433,8 @@ time.sleep(1)
 pyautogui.press('tab')
 time.sleep(1)
 pyautogui.write(month_year)
-time.sleep(1)
-pyautogui.leftClick(95, 161)
+time.sleep(2)
+pyautogui.leftClick(94, 165)
 time.sleep(1)
 pyautogui.leftClick(95, 228)
 time.sleep(3)
@@ -391,7 +442,7 @@ pyautogui.press('enter')
 time.sleep(2)
 pyautogui.write(caminho_html_sal_pro)
 pyautogui.press('enter')
-time.sleep(5)
+time.sleep(3)
 
 with open(output_html_path_fgts +'.htm') as file:
     html_content_inss = file.read()
@@ -412,7 +463,7 @@ if td_s12_values:
 
     # Formatar o valor para xxxxx,xx
     valor_formatado_fgts = valor_bruto.replace('.', '').replace(',', '.')  # Remove os pontos e ajusta vírgula
-    print("Valor formatado:", valor_formatado)
+    print("Valor formatado:", valor_formatado_fgts)
 
 else:
     print("Nenhum valor encontrado.")
@@ -509,9 +560,15 @@ else:
             resultado_inss = "verificar"
             print("vlr_INSS não encontrado na planilha.")
 
-        resultado_ferias = "OK" if saldo_final_valores.get('FERIAS') == vlr_prov_ferias else "verificar"
-        resultado_fgts_f = "OK" if saldo_final_valores.get('FGTS_f') == vlr_prov_fgts_f else "verificar"
-        resultado_inss_f = "OK" if saldo_final_valores.get('INSS_f') == vlr_prov_inss_f else "verificar"
+        resultado_ferias = "verificar"
+        resultado_fgts_f = "verificar"
+        resultado_inss_f = "verificar"
+
+        if saldo_final_valores:
+            resultado_ferias = "OK" if saldo_final_valores.get('FERIAS') == vlr_prov_ferias else "verificar"
+            resultado_fgts_f = "OK" if saldo_final_valores.get('FGTS_f') == vlr_prov_fgts_f else "verificar"
+            resultado_inss_f = "OK" if saldo_final_valores.get('INSS_f') == vlr_prov_inss_f else "verificar"
+
         resultado_fgts = "OK" if float(valor_formatado_fgts) == float(vlr_fgts) else "verificar"
 
         print(f"Comparação FERIAS: {resultado_ferias}")
